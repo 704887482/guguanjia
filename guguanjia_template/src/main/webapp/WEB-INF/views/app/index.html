@@ -1,0 +1,356 @@
+<!-- 头部 -->
+<!DOCTYPE html>
+<html lang="zh-cn">
+<script>
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.html
+    var pathName=window.document.location.pathname;
+    var path=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    //引入jq和公共的public.js
+	document.write(	`<script src="${path}/static/jquery/jquery-2.1.1.min.js"><\/script>`);
+	document.write(	`<script src="${path}/static/js/common/public.js"><\/script>`);
+</script>
+<head>
+	<meta charset="utf-8" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>固管家服务平台</title>
+    <meta name="description" content="index" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<style>
+		#profile .center>label{width: 100px;text-align: right;}
+	</style>
+</head>
+
+<body class="no-skin" id="body-content">
+<!-- 顶部条 -->
+<div id="navbar" class="navbar navbar-default">
+
+</div>
+<!-- 主体 -->
+<div class="main-container" id="main-container">
+	<div id="sidebar" class="sidebar responsive">
+
+	</div>
+	<div class="main-content">
+		<div class="breadcrumbs" id="breadcrumbs">
+			
+
+			<ul class="tab" id="breadcrumb">
+				<!-- <li class="active" >
+               菜单配置<i class="fa fa-times close"></i>
+               </li>  -->
+			</ul><!-- /.breadcrumb -->
+			<div id="tab-menu">
+				<ul class="dropdown-menu dropdown-caret" style="min-width: 0px;">
+					<li><a href="#" data-right-menu="all_close">全部关闭</a></li>
+					<li><a href="#" data-right-menu="other_close">关闭其他</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="page-content">
+			<div class="ace-settings-container" id="ace-settings-container">
+			</div>
+			<!-- /.ace-settings-container -->
+			<div class="page-header">
+				<h1> APP管理 </h1>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="fill-main-content" style="height:100%">
+						<div class="tabbable">
+							<ul class="nav nav-tabs" id="myTab">
+								<li class="active">
+									<a data-toggle="tab" href="#home">
+										<i class="green ace-icon fa fa-users bigger-120"></i> 版本列表
+									</a>
+								</li>
+								<li class=""><a data-toggle="tab" href="#profile">
+									<i class="green ace-icon fa fa-plus bigger-120"></i> 版本添加
+								</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="home" class="tab-pane active clearfix">
+									<form action="app/list" method="post" id="search-form"
+										  target="list-page" class="center clearfix">
+										<input type="button" id="search-btn" style="display: none"/>
+									</form>
+									<div class="space-6"></div>
+									<div id="list-page">
+										<table class="table table-striped table-bordered table-hover nomargin-bottom">
+											<thead>
+											<tr>
+												<th class="center">版本号</th>
+												<th class="center">系统平台</th>
+												<th class="center">是否强制更新</th>
+												<th class="center">下载地址</th>
+												<th class="center">应用大小</th>
+												<th class="center">版本说明</th>
+												<th class="center">发布时间</th>
+												<th class="center">操作</th>
+											</tr>
+											</thead>
+
+											<tbody>
+											<tr v-for="app in appList">
+												<td class="center">
+													<a href="#"
+													   data-title="<V1.5.2>详情" data-mode="detail"
+													   data-url="/guguanjia/manager/app/detail/showlayer" data-width="50%"
+													   :data-data="JSON.stringify({id:app.id})"
+													>{{app.versionNo}}</a>
+												</td>
+												<td class="center">
+													{{app.platform=='0'?'Android':'IOS'}}
+												</td>
+												<td class="center">
+													{{app.forceUpdate=='0'?'是':'否'}}
+												</td>
+												<td class="center"><a :href="app.dowRnPath">{{app.downPath}}</a></td>
+												<td class="center">{{app.size}}</td>
+												<td class="center">{{app.appExplain}}</td>
+												<td class="center">{{app.updateDate | formatDate}}</td>
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a class="green" href="#" title="编辑" >
+															<i class="ace-icon fa fa-pencil bigger-130"></i>
+														</a>
+														<a class="red" href="#" title="删除" >
+
+															<i class="ace-icon fa fa-trash-o bigger-130"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											</tbody>
+										</table>
+										<div class="space-8"></div>
+
+										<div class="clearfix">
+											<div style="float: left;">
+												<div style="padding-top:5px;">
+			<span class="badge badge-info">
+				当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+			</span>
+												</div>
+											</div>
+											<div>
+												<div class="pagination no-margin pull-right clearfix">
+													<li class="prev"><a href="#" @click="selectAll(1,pageInfo.size)">首页</a></li>
+													<li :class="pageInfo.hasPreviousPage?'prev':'prev disabled'">
+														<a v-if="pageInfo.hasPreviousPage" href="#" @click="selectAll(pageInfo.prePage,pageInfo.size)">上一页</a>
+														<a v-else-if="!pageInfo.hasPreviousPage" href="#">上一页</a>
+													</li>
+													<li :class="pageInfo.pageNum==i?'active':''" v-for="i in pageInfo.navigatepageNums"><a href="#" @click="selectAll(i,pageInfo.size)">{{i}}</a></li>
+													<li :class="pageInfo.hasNextPage?'next':'next disabled'">
+														<a v-if="pageInfo.hasNextPage" href="#" @click="selectAll(pageInfo.nextPage,pageInfo.size)">下一页</a>
+														<a v-else-if="!pageInfo.hasNextPage" href="#">下一页</a>
+													</li>
+													<li class="next"><a href="#" @click="selectAll(pageInfo.pages,pageInfo.size)">尾页</a></li>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="profile" class="tab-pane">
+									<form action="app/save" method="post" id="app-save-form">
+										<div class="center padding-10">
+											<label>系统平台：</label>
+											<select name="platform" class="width-50" datatype="*" nullmsg="请选择系统平台！">
+												<option value="0" selected>Android</option>
+												<option value="1">IOS</option>
+											</select>
+										</div>
+										<div class="center padding-10">
+											<label>是否强制更新：</label>
+											<select name="platform" class="width-50" datatype="*" nullmsg="请选择是否强制更新！">
+												<option value="0" selected>否</option>
+												<option value="1">是</option>
+											</select>
+										</div>
+										<div class="center padding-10">
+											<label>版本号：</label>
+											<input type="text" class="width-50" name="versionNo" datatype="*" nullmsg="请输入版本号"/>
+										</div>
+										<div class="center padding-10">
+											<label>下载地址：</label>
+											<input type="text" class="width-50" name="downPath" datatype="*" nullmsg="请输入下载地址！" />
+										</div>
+										<div class="center padding-10">
+											<label>应用大小：</label>
+											<input type="text" class="width-50" name="size" datatype="*" nulmsg="请输入应用大小，单位MB"/>
+										</div>
+										<div class="center padding-10" >
+											<label style="vertical-align: top;">版本说明：</label>
+											<textarea type="text" class="width-50" name="appExplain"></textarea>
+										</div>
+										<div class="margin-t15">
+											<span class="btn btn-info btn-block bigger-120" id="app-save-btn">保 存</span>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						<!--修改模态框-->
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="updateModalLabel">APP编辑</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div id="fill-main-content2" style="height:100%">
+                                                    <div class="xuboxPageHtml" id="xboxTest" style="overflow-y: auto; height: 370px;"><div class="layer">
+                                                        <form name="FormPost" id="app-save" class="FormGrid" method="post" action="app/save">
+                                                            <input type="hidden" value="1" name="id">
+                                                            <table class="EditTable" width="100%">
+                                                                <tbody>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">系统平台</td>
+                                                                    <td class="DataTD width-100">
+                                                                        <select name="platform" class="width-70">
+                                                                            <option value="0" selected="">Android</option>
+                                                                            <option value="1">IOS</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">是否强制更新</td>
+                                                                    <td class="DataTD">
+                                                                        <select name="forceUpdate" class="width-70">
+                                                                            <option value="0">否</option>
+                                                                            <option value="1" selected="">是</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">版本号</td>
+                                                                    <td class="DataTD">
+                                                                        <input type="text" value="1.5.2" name="versionNo" nullmsg="请输入版本号">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">下载地址</td>
+                                                                    <td class="DataTD">
+                                                                        <textarea name="downPath" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 92px;">http://127.0.0.1:8080/guguanjia/manager/#/ajax/manager/app/index</textarea>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">文件大小</td>
+                                                                    <td class="DataTD">
+                                                                        <input type="text" value="198.0" name="size">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="FormData">
+                                                                    <td class="CaptionTD">应用说明</td>
+                                                                    <td class="DataTD">
+                                                                        <textarea name="appExplain" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 52px;">优化界面</textarea>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+
+                                                        <div class="width-100 clearfix" tag-save-btn="" style="bottom: -36px; left: 0px; position: absolute;">
+	<span class="btn btn-primary btn-sm bigger-110 width-50  pull-left" id="app-save-save">
+		<i class="ace-icon fa fa-floppy-o align-top bigger-125"></i> 确 定
+	</span>
+                                                            <span class="btn btn-yellow btn-sm bigger-110 width-50 pull-right" id="app-save-cancel" data-dismiss="modal">
+		<i class="ace-icon fa fa-times align-top  bigger-125" ></i> 取 消
+	</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary">提交更改</button>
+                                    </div>-->
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+                        <!--删除模态框-->
+
+                        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="delModalLabel">删除</h4>
+                                    </div>
+                                    <div class="modal-body">是否删除</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary">提交</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+						
+					
+					</div>
+
+				</div>
+			</div>
+		</div><!-- /.page-content -->
+
+	</div><!-- /.main-content -->
+
+	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"  style="z-index:1111">
+		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+	</a>
+</div><!-- /.main-container -->
+
+<!-- 底部 -->
+<!-- basic scripts -->
+<script >
+    try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+
+    try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+
+    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+
+    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+
+    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+
+    $(function(){
+
+        $("#app-save-btn").click(function() {
+            if("true" == "true"){
+
+            }
+            sysuserForm.submitForm(false);
+            return false;
+        });
+
+        $("#app-save-form-cancel").click(function(){
+            layer.closeAll();
+            return false;
+        });
+
+        $("#app-save-form input,#app-save-form textarea").blur(function(){
+            layer.closeTips();
+            return false;
+        })
+
+
+    });
+
+    //if('ontouchstart' in document.documentElement) document.write("<script src='../../static/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+
+</body>
+</html>
