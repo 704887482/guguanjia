@@ -33,7 +33,14 @@ public class TestConfig {
 
     @Test
     public void getDataSource() throws SQLException {
-        System.out.println(dataSource.getConnection());
+        String a="a22";
+        String b="2";
+        final String c="a2";
+/*        String d=a+c;
+        String e=b+c;*/
+        String d=c+b;
+        String e=b+2;
+        System.out.println(a==c);
     }
 
     @Test

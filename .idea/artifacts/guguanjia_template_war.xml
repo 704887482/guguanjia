@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="guguanjia_template:war">
+    <output-path>$PROJECT_DIR$/guguanjia_template/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>guguanjia_template</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="guguanjia_template-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="guguanjia_template:war exploded" />
+    </root>
+  </artifact>
+</component>

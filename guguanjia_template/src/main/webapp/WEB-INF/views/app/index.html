@@ -65,7 +65,7 @@
 										<i class="green ace-icon fa fa-users bigger-120"></i> 版本列表
 									</a>
 								</li>
-								<li class=""><a data-toggle="tab" href="#profile">
+								<li class=""><a data-toggle="tab" href="#profile" @click="clearAppVersion">
 									<i class="green ace-icon fa fa-plus bigger-120"></i> 版本添加
 								</a></li>
 							</ul>
@@ -96,15 +96,15 @@
 												<td class="center">
 													<a href="#"
 													   data-title="<V1.5.2>详情" data-mode="detail"
-													   data-url="/guguanjia/manager/app/detail/showlayer" data-width="50%"
-													   :data-data="JSON.stringify({id:app.id})"
+													   data-width="50%"
+													  @click="toUpdate(app.id)"
 													>{{app.versionNo}}</a>
 												</td>
 												<td class="center">
 													{{app.platform=='0'?'Android':'IOS'}}
 												</td>
 												<td class="center">
-													{{app.forceUpdate=='0'?'是':'否'}}
+													{{app.forceUpdate=='1'?'是':'否'}}
 												</td>
 												<td class="center"><a :href="app.dowRnPath">{{app.downPath}}</a></td>
 												<td class="center">{{app.size}}</td>
@@ -112,10 +112,10 @@
 												<td class="center">{{app.updateDate | formatDate}}</td>
 												<td class="center">
 													<div class="hidden-sm hidden-xs action-buttons">
-														<a class="green" href="#" title="编辑" >
+														<a class="green" href="#" title="编辑" @click="toUpdate(app.id)">
 															<i class="ace-icon fa fa-pencil bigger-130"></i>
 														</a>
-														<a class="red" href="#" title="删除" >
+														<a class="red" href="#" @click="toDelete(app.id)" title="删除" >
 
 															<i class="ace-icon fa fa-trash-o bigger-130"></i>
 														</a>
@@ -157,36 +157,36 @@
 									<form action="app/save" method="post" id="app-save-form">
 										<div class="center padding-10">
 											<label>系统平台：</label>
-											<select name="platform" class="width-50" datatype="*" nullmsg="请选择系统平台！">
+											<select name="platform" class="width-50" v-model="appVersion.platform">
 												<option value="0" selected>Android</option>
 												<option value="1">IOS</option>
 											</select>
 										</div>
 										<div class="center padding-10">
 											<label>是否强制更新：</label>
-											<select name="platform" class="width-50" datatype="*" nullmsg="请选择是否强制更新！">
-												<option value="0" selected>否</option>
-												<option value="1">是</option>
+											<select name="platform" class="width-50" v-model="appVersion.forceUpdate">
+												<option value="1" selected>否</option>
+												<option value="0">是</option>
 											</select>
 										</div>
 										<div class="center padding-10">
 											<label>版本号：</label>
-											<input type="text" class="width-50" name="versionNo" datatype="*" nullmsg="请输入版本号"/>
+											<input type="text" class="width-50" name="versionNo" v-model="appVersion.versionNo">
 										</div>
 										<div class="center padding-10">
 											<label>下载地址：</label>
-											<input type="text" class="width-50" name="downPath" datatype="*" nullmsg="请输入下载地址！" />
+											<input type="text" class="width-50" name="downPath" v-model="appVersion.downPath"/>
 										</div>
 										<div class="center padding-10">
 											<label>应用大小：</label>
-											<input type="text" class="width-50" name="size" datatype="*" nulmsg="请输入应用大小，单位MB"/>
+											<input type="text" class="width-50" name="size" v-model="appVersion.size"/>
 										</div>
 										<div class="center padding-10" >
 											<label style="vertical-align: top;">版本说明：</label>
-											<textarea type="text" class="width-50" name="appExplain"></textarea>
+											<textarea type="text" class="width-50" name="appExplain" v-model="appVersion.appExplain"></textarea>
 										</div>
 										<div class="margin-t15">
-											<span class="btn btn-info btn-block bigger-120" id="app-save-btn">保 存</span>
+											<span class="btn btn-info btn-block bigger-120" id="app-save-btn" @click="save">保 存</span>
 										</div>
 									</form>
 								</div>
@@ -213,43 +213,43 @@
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">系统平台</td>
                                                                     <td class="DataTD width-100">
-                                                                        <select name="platform" class="width-70">
-                                                                            <option value="0" selected="">Android</option>
-                                                                            <option value="1">IOS</option>
+                                                                        <select name="platform" class="width-70" v-model="appVersion.platform">
+                                                                            <option value="0" :selected="appVersion.platform=='0'">Android</option>
+                                                                            <option value="1" :selected="appVersion.platform=='1'">IOS</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">是否强制更新</td>
                                                                     <td class="DataTD">
-                                                                        <select name="forceUpdate" class="width-70">
-                                                                            <option value="0">否</option>
-                                                                            <option value="1" selected="">是</option>
+                                                                        <select name="forceUpdate" class="width-70" v-model="appVersion.forceUpdate">
+                                                                            <option value="0" :selected="appVersion.forceUpdate=='0'">否</option>
+                                                                            <option value="1" :selected="appVersion.forceUpdate=='1'">是</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">版本号</td>
                                                                     <td class="DataTD">
-                                                                        <input type="text" value="1.5.2" name="versionNo" nullmsg="请输入版本号">
+                                                                        <input type="text" v-model="appVersion.versionNo" name="versionNo" nullmsg="请输入版本号">
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">下载地址</td>
                                                                     <td class="DataTD">
-                                                                        <textarea name="downPath" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 92px;">http://127.0.0.1:8080/guguanjia/manager/#/ajax/manager/app/index</textarea>
+                                                                        <textarea name="downPath" v-model="appVersion.downPath" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 92px;">{{appVersion.downPath}}</textarea>
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">文件大小</td>
                                                                     <td class="DataTD">
-                                                                        <input type="text" value="198.0" name="size">
+                                                                        <input type="text" v-model="appVersion.size" name="size">
                                                                     </td>
                                                                 </tr>
                                                                 <tr class="FormData">
                                                                     <td class="CaptionTD">应用说明</td>
                                                                     <td class="DataTD">
-                                                                        <textarea name="appExplain" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 52px;">优化界面</textarea>
+                                                                        <textarea name="appExplain" v-model="appVersion.appExplain" class="autosize-transition form-control" style="resize: none; overflow: hidden; word-wrap: break-word; height: 52px;">{{appVersion.appExplain}}</textarea>
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
@@ -258,7 +258,7 @@
                                                     </div>
 
                                                         <div class="width-100 clearfix" tag-save-btn="" style="bottom: -36px; left: 0px; position: absolute;">
-	<span class="btn btn-primary btn-sm bigger-110 width-50  pull-left" id="app-save-save">
+	<span class="btn btn-primary btn-sm bigger-110 width-50  pull-left" id="app-save-save" @click="update">
 		<i class="ace-icon fa fa-floppy-o align-top bigger-125"></i> 确 定
 	</span>
                                                             <span class="btn btn-yellow btn-sm bigger-110 width-50 pull-right" id="app-save-cancel" data-dismiss="modal">
@@ -292,7 +292,7 @@
                                     <div class="modal-body">是否删除</div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                        <button type="button" class="btn btn-primary">提交</button>
+                                        <button type="button" class="btn btn-primary" @click="deleteById">提交</button>
                                     </div>
                                 </div><!-- /.modal-content -->
                             </div><!-- /.modal -->
@@ -328,7 +328,7 @@
 
     $(function(){
 
-        $("#app-save-btn").click(function() {
+       /* $("#app-save-btn").click(function() {
             if("true" == "true"){
 
             }
@@ -345,12 +345,20 @@
             layer.closeTips();
             return false;
         })
-
+*/
 
     });
-
+	$(function(){
+		$("#script").html(`<script type="text/javascript" src="${path}/static/js/app/index.js"><\/script>`);
+		//load（url）：异步加载url地址返回的html
+		$("#navbar").load(`${path}/manager/common/navbar`);
+		$("#sidebar").load(`${path}/manager/common/sidebar`);
+		$("#ace-settings-container").load(`${path}/manager/common/aceSetting`);
+	})
     //if('ontouchstart' in document.documentElement) document.write("<script src='../../static/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 </script>
+<div id="script">
 
+</div>
 </body>
 </html>

@@ -31,14 +31,13 @@ $(function () {
             <script type="text/javascript" src="${path}/static/js/vue.js"></script>
             <script type="text/javascript" src="${path}/static/js/axios.js"></script>
             <script type="text/javascript" src="${path}/static/js/common/vuePublic.js"></script>
-            <script type="text/javascript" src="${path}/static/js/app/index.js"></script>`;
+            <script  src="${path}/static/layer/layer.min.js"></script>`;
+
+
 
     //放入head
     $("head:eq(0)").html(head);
 
-    //load（url）：异步加载url地址返回的html
-    $("#navbar").load(`${path}/manager/common/navbar`);
-    $("#sidebar").load(`${path}/manager/common/sidebar`);
-    $("#ace-settings-container").load(`${path}/manager/common/aceSetting`);
+
 
 })
