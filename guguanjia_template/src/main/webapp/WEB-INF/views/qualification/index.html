@@ -1,0 +1,415 @@
+<!-- 头部 -->
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>固管家服务平台</title>
+	<meta name="description" content="index" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+
+
+</head>
+<script>
+	//获取主机地址之后的目录，如： uimcardprj/share/meun.html
+	var pathName=window.document.location.pathname;
+	var path=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+	//引入jq和公共的public.js
+	document.write(`<script src="${path}/static/jquery/jquery-2.1.1.min.js"><\/script>`);
+	document.write(`<script src="${path}/static/js/common/public.js"><\/script>`);
+
+</script>
+<body class="no-skin" id="body-content">
+<style>
+	#profile .center>label{width: 100px;text-align: right;}
+</style>
+<!-- 顶部条 -->
+<div id="navbar" class="navbar navbar-default">
+
+
+
+</div>
+<!-- 主体 -->
+<div class="main-container" id="main-container">
+
+
+
+	<div id="sidebar" class="sidebar responsive">
+
+
+	</div>
+
+
+	<div class="main-content">
+		<div class="breadcrumbs" id="breadcrumbs">
+
+
+			<ul class="tab" id="breadcrumb">
+				<!-- <li class="active" >
+               菜单配置<i class="fa fa-times close"></i>
+               </li>  -->
+			</ul><!-- /.breadcrumb -->
+			<div id="tab-menu">
+				<ul class="dropdown-menu dropdown-caret" style="min-width: 0px;">
+					<li><a href="javascript:void(0);" data-right-menu="all_close">全部关闭</a></li>
+					<li><a href="javascript:void(0);" data-right-menu="other_close">关闭其他</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="page-content">
+			<div class="ace-settings-container" id="ace-settings-container">
+
+			</div>
+			<!-- /.ace-settings-container -->
+			<div class="page-header">
+				<h1>资质审核</h1>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="fill-main-content" style="height:100%">
+						<div class="tabbable">
+							<div class="tab-content">
+								<div id="home" class="tab-pane active clearfix">
+									<div class="widget-container-col ui-sortable">
+										<div class="widget-box ">
+											<div class="widget-header widget-header-small">
+												<h6 class="widget-title">
+													<i class="ace-icon fa fa-search"></i>搜索
+												</h6>
+
+												<div class="widget-toolbar">
+													<a href="javascript:void(0);" data-action="collapse">
+														<i class="ace-icon fa bigger-125 fa-chevron-up"></i>
+													</a>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-body-inner" >
+													<div class="widget-main">
+														<form action="" method="post" id="search-form"
+															  target="list-page" class="center clearfix">
+															<div class="row padding-tb-10">
+																<div class="col-sm-6">
+																	<label class="inline">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间：</label>
+																	<input style="height: 35px;" type="date" class="width-39" name="startDate"/> - <input style="height: 35px;" type="date"class="width-39" name="endDate"/>
+																</div>
+																<div class="col-sm-6">
+																	<label class="inline">资质类型：</label>
+																	<select name="type" class="width-80">
+																		<option value="">请选择资质类型</option>
+																		<option value="1">产废</option>
+																		<option value="2">运输</option>
+																		<option value="3">处置</option>
+																	</select>
+																</div>
+															</div>
+															<div class="row padding-tb-10">
+																<div class="col-sm-6">
+																	<label class="inline">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
+																	<select name="check" class="width-80">
+																		<option value="">请选择审核状态</option>
+																		<option value="0">待审核</option>
+																		<option value="1">审核通过</option>
+																		<option value="2">审核失败</option>
+																	</select>
+																</div>
+															</div>
+															<div class="padding-trb-10 col-sm-12">
+																<span class="btn  btn-primary btn-sm col-sm-6" onclick="">全 部 资质</span>
+																<span class="btn btn-info btn-sm col-sm-6" id="search-btn">条 件 查 询</span>
+															</div>
+														</form>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="space-6"></div>
+									<div id="list-page">
+										<table class="table table-striped table-bordered table-hover nomargin-bottom">
+											<thead>
+											<tr>
+												<th class="center">申请时间</th>
+												<th class="center">资质类型</th>
+												<th class="center">申请人</th>
+												<th class="center">状态</th>
+												<th class="center">备注</th>
+												<th class="center">审核人</th>
+												<th class="center">审核时间</th>
+												<th class="center">操作</th>
+											</tr>
+											</thead>
+
+											<tbody>
+											<tr>
+												<td class="center">2019-07-10 14:29:12</td>
+												<td class="center">
+													执照
+												</td>
+												<td class="center">利特产废（黑石子）</td>
+												<td class="center">
+													<font color="gray">待审核</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+												</td>
+												<td class="center">
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_5" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130">
+															</i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center">2019-05-10 14:29:12</td>
+												<td class="center">
+													运输
+												</td>
+												<td class="center">利特产废（黑石子）</td>
+												<td class="center">
+													<font color="gray">待审核</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+												</td>
+												<td class="center">
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_7" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130">
+															</i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center">2019-03-10 14:29:12</td>
+												<td class="center">
+													执照
+												</td>
+												<td class="center">企业运输C</td>
+												<td class="center">
+													<font color="gray">待审核</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+												</td>
+												<td class="center">
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_9" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130">
+															</i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center">2019-01-11 14:29:12</td>
+												<td class="center">
+													产废
+												</td>
+												<td class="center">企业运输C</td>
+												<td class="center">
+													<font color="gray">待审核</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+												</td>
+												<td class="center">
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_10" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130">
+															</i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center">2017-06-07 02:56:40</td>
+												<td class="center">
+													产废
+												</td>
+												<td class="center">未认证用户</td>
+												<td class="center">
+													<font color="gray">待审核</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+												</td>
+												<td class="center">
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_1" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+
+											<tr>
+												<td class="center">2017-10-11 02:59:14</td>
+												<td class="center">
+													运输
+												</td>
+												<td class="center">运输方测试账号</td>
+												<td class="center">
+													<font color="green">审核通过</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+													超级管理员
+												</td>
+												<td class="center">
+													2017-10-11 02:59:14</td>
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_2" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td class="center">2019-08-10 14:29:12</td>
+												<td class="center">
+													处置
+												</td>
+												<td class="center"></td>
+												<td class="center">
+													<font color="red">审核失败</font>
+												</td>
+												<td class="center"></td>
+												<td class="center">
+													超级管理员
+												</td>
+												<td class="center">
+													2019-08-10 14:29:12</td>
+												<td class="center">
+													<div class="hidden-sm hidden-xs action-buttons">
+														<a id="detail_4" class="green" href="javascript:void(0);" title="查看资质图片"
+														   onclick="$('#updateModal').modal('show')">
+															<i class="fa-files-o fa fa-pencil bigger-130"></i>
+														</a>
+													</div>
+												</td>
+											</tr>
+
+
+											</tbody>
+										</table>
+										<div class="space-8"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<!--修改模态框-->
+						<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+										<h4 class="modal-title" id="updateModalLabel">审核编辑</h4>
+									</div>
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-xs-12 ">
+
+
+												<div  class="profile-user-info profile-user-info-striped" style="overflow-y: auto; height: 370px;">
+												<div class="profile-info-row">
+													<div class="profile-info-name">资质图片</div>
+													<div class="profile-info-value">
+														<a title="点击查看原图" target="_blank" href="#"><img height="300" src="#"/></a>&nbsp;&nbsp;
+													</div>
+												</div>
+												<div class="profile-info-row">
+													<div class="profile-info-name">审核状态</div>
+													<div class="profile-info-value">
+														<span style="color:gray">未审核</span>
+													</div>
+												</div>
+												<div class="profile-info-row">
+													<div class="profile-info-name">审核说明</div>
+													<div class="profile-info-value">
+				<span>
+						<textarea id="description" rows="5" cols="50" name="description"></textarea>
+				</span>
+													</div>
+												</div>
+											</div>
+											</div>
+										</div>
+										<div class="width-100 clearfix" tag-save-btn style="bottom: 0px;left: 0px;position:absolute;">
+		<span class="btn btn-primary btn-sm bigger-110 width-50  pull-left" action="examine" id="leftButton">
+			<i class="ace-icon fa fa-floppy-o align-top bigger-125"></i><span id="leftButtonText">通过</span>
+		</span>
+											<span class="btn btn-yellow btn-sm bigger-110 width-50 pull-right" action="unexamine" id="rightButton">
+			<i class="ace-icon fa fa-times align-top  bigger-125"></i>不通过
+		</span>
+										</div>
+									</div>
+									<!--<div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary">提交更改</button>
+                                    </div>-->
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal -->
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div><!-- /.page-content -->
+
+	</div><!-- /.main-content -->
+
+	<a href="javascript:void(0);" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"  style="z-index:1111">
+		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+	</a>
+</div><!-- /.main-container -->
+
+<!-- 底部 -->
+<!-- basic scripts -->
+<script >
+
+	try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+	try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+	try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+	try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+	$(function(){
+		$("#script").html(`<script  src="${path}/static/js/app/index.js"><\/script>`);
+		//load(url):异步加载url地址返回的html
+		$("#navbar").load(`${path}/manager/common/navbar`);
+		$("#sidebar").load(`${path}/manager/common/sidebar`);
+		$("#ace-settings-container").load(`${path}/manager/common/aceSetting`);
+
+
+
+	});
+</script>
+<div id="script">
+
+</div>
+</body>
+</html>
