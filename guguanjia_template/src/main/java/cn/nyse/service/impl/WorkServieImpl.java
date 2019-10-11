@@ -1,11 +1,15 @@
 package cn.nyse.service.impl;
 
+import cn.nyse.entity.WorkOrder;
 import cn.nyse.service.WorkService;
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author hhy
  * @Date 2019/10/10 18:11
  */
-public class WorkServieImpl extends ServiceImpl<Work> implements WorkService {
+@Service
+@Transactional
+public class WorkServieImpl extends ServiceImpl<WorkOrder> implements WorkService {
 }

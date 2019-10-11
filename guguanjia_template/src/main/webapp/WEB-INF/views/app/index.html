@@ -1,14 +1,7 @@
 <!-- 头部 -->
 <!DOCTYPE html>
 <html lang="zh-cn">
-<script>
-    //获取主机地址之后的目录，如： uimcardprj/share/meun.html
-    var pathName=window.document.location.pathname;
-    var path=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
-    //引入jq和公共的public.js
-	document.write(	`<script src="${path}/static/jquery/jquery-2.1.1.min.js"><\/script>`);
-	document.write(	`<script src="${path}/static/js/common/public.js"><\/script>`);
-</script>
+
 <head>
 	<meta charset="utf-8" />
     <meta name="renderer" content="webkit">
@@ -20,7 +13,15 @@
 		#profile .center>label{width: 100px;text-align: right;}
 	</style>
 </head>
+<script>
+	//获取主机地址之后的目录，如： uimcardprj/share/meun.html
+	var pathName=window.document.location.pathname;
+	var path=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+	//引入jq和公共的public.js
+	document.write(`<script src="${path}/static/jquery/jquery-2.1.1.min.js"><\/script>`);
+	document.write(`<script src="${path}/static/js/common/public.js"><\/script>`);
 
+</script>
 <body class="no-skin" id="body-content">
 <!-- 顶部条 -->
 <div id="navbar" class="navbar navbar-default">
@@ -316,46 +317,20 @@
 <!-- 底部 -->
 <!-- basic scripts -->
 <script >
-    try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+	try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+	try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+	try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+	try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 
-    try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-
-    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-
-    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-
-    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-
-    $(function(){
-
-       /* $("#app-save-btn").click(function() {
-            if("true" == "true"){
-
-            }
-            sysuserForm.submitForm(false);
-            return false;
-        });
-
-        $("#app-save-form-cancel").click(function(){
-            layer.closeAll();
-            return false;
-        });
-
-        $("#app-save-form input,#app-save-form textarea").blur(function(){
-            layer.closeTips();
-            return false;
-        })
-*/
-
-    });
 	$(function(){
-		$("#script").html(`<script type="text/javascript" src="${path}/static/js/app/index.js"><\/script>`);
-		//load（url）：异步加载url地址返回的html
+		$("#script").html(`<script  src="${path}/static/js/app/index.js"><\/script>`);
+		//load(url):异步加载url地址返回的html
 		$("#navbar").load(`${path}/manager/common/navbar`);
 		$("#sidebar").load(`${path}/manager/common/sidebar`);
 		$("#ace-settings-container").load(`${path}/manager/common/aceSetting`);
-	})
-    //if('ontouchstart' in document.documentElement) document.write("<script src='../../static/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+
+	});
 </script>
 <div id="script">
 

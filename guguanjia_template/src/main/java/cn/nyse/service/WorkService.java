@@ -1,6 +1,6 @@
 package cn.nyse.service;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
+import cn.nyse.entity.WorkOrder;
 
-public interface WorkService extends IService<Work>{
+public interface WorkService extends IService<WorkOrder>{
 }
