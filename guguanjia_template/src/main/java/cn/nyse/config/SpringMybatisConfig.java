@@ -10,6 +10,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -26,8 +27,9 @@ import java.util.Properties;
 
 @Configuration
 @MapperScan(basePackages = "cn.nyse.mapper")//扫描mapper
-@ComponentScan(basePackages = "cn.nyse.service")//扫描服务层
+@ComponentScan(basePackages = {"cn.nyse.service","cn.nyse.utils"})//扫描服务层
 @EnableTransactionManagement//事务注解支持
+@PropertySource(value = "classpath:sys.properties",encoding = "utf-8")
 public class SpringMybatisConfig {
 
 

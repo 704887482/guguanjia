@@ -1,7 +1,9 @@
 package cn.nyse.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "qualification")
 public class Qualification {
@@ -21,6 +23,7 @@ public class Qualification {
     /**
      * 0未审核            1通过审核            2审核失败
      */
+    @Column(name="`check`")
     private Integer check;
 
     private String description;

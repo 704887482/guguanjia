@@ -1,4 +1,5 @@
 Vue.filter('formatDate',function(date){
+    if (date){
     // 格式化时间
     const dateTime = new Date(date);
     const YY = dateTime.getFullYear();
@@ -21,4 +22,7 @@ Vue.filter('formatDate',function(date){
             ? '0' + dateTime.getSeconds()
             : dateTime.getSeconds();
     return `${YY}-${MM}-${D} ${hh}:${mm}`;
+    }else {
+        return '';
+    }
 })

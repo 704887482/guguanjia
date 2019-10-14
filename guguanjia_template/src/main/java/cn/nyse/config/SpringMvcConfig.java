@@ -4,6 +4,7 @@ package cn.nyse.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,6 +29,10 @@ public class SpringMvcConfig implements WebMvcConfigurer {
        return new InternalResourceViewResolver("/WEB-INF/views",".html");
     }
 
-
+    @Bean("multipartResolver")//指定bean的名字
+    public CommonsMultipartResolver getMultipartResolver(){
+        CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
+        return commonsMultipartResolver;
+    }
 
 }

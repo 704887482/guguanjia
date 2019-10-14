@@ -1,7 +1,11 @@
 package cn.nyse.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "statute")
 public class Statute {
@@ -19,6 +23,7 @@ public class Statute {
     private String title;
 
     @Column(name = "pub_date")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date pubDate;
 
     private String code;

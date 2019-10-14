@@ -46,5 +46,12 @@ public class TestStatute {
 //        List<Statute> statutes = mapper.selectByExample(statuteExample);
 
     }
+    @Test
+    public void test2(){
+        String str="123.jsp";
+        int i=str.lastIndexOf(".");
+        String lastname=str.substring(1,2);
+        System.out.println(lastname);
+    }
 
 }
