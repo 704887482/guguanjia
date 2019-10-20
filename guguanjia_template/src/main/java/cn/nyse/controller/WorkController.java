@@ -1,41 +1,69 @@
 package cn.nyse.controller;
 
-import cn.nyse.entity.WorkOrder;
+import cn.nyse.entity.SysOffice;
+import cn.nyse.service.SysOfficeService;
 import cn.nyse.service.WorkService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author hhy
  * @Date 2019/10/10 18:10
  */
 @Controller
-@RequestMapping("/manager/admin")
+@RequestMapping("/manager")
 public class WorkController {
 
     @Autowired
     WorkService service;
 
-    @RequestMapping("work")
+    @Autowired
+    SysOfficeService officeService;
+
+    @RequestMapping("/admin/work")
     public String work(){
         return "/work/admin/work";
     }
 
-    @RequestMapping("toIndex")
+    @RequestMapping("/admin/toIndex")
     @ResponseBody
-    public PageInfo<WorkOrder> toIndex(@RequestParam(defaultValue = "1",name = "pageNum") int pageNum, @RequestParam(defaultValue = "5",name = "pageSize") int pageSize){
+    public PageInfo<Map<String, Object>> toIndex(@RequestBody Map<String,Object> params){
+        if(!params.containsKey("pageNum")|| StringUtils.isEmpty(params.get("pageNum"))){
+            params.put("pageNum",1);
+        }
+        if(!params.containsKey("pageSize")|| StringUtils.isEmpty(params.get("pageSize"))){
+            params.put("pageSize",5);
+        }
         //初始化分页插件
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage((Integer)params.get("pageNum"),(Integer)params.get("pageSize"));
         //查询list
-        List<WorkOrder> works = service.selectAll();
-        PageInfo<WorkOrder> workPageInfo = new PageInfo<>(works);
+        List<Map<String, Object>> maps = service.selectByCondition(params);
+        PageInfo<Map<String, Object>> workPageInfo = new PageInfo<>(maps);
         return workPageInfo;
+    }
+
+    @RequestMapping("/office/selectOffices")
+    @ResponseBody
+    public List<SysOffice> selectOffices(){
+        return officeService.selectAll();
+    }
+
+    @RequestMapping(value = "/admin/work/detail/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> detail(@PathVariable("id") int id){
+        return service.selectOneByCondition(id);
+    }
+
+    @RequestMapping(value = "/admin/work/print/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> print(@PathVariable("id") int id){
+        return service.selectOneByCondition(id);
     }
 }

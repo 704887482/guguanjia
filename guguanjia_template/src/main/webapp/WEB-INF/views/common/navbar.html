@@ -105,7 +105,7 @@
                     <img class="nav-user-photo" src="/guguanjia/static/img/small-male-pic.png" />
                     <span class="user-info">
 									<small>你好,</small>
-									超级管理员
+									{{user.username}}
 								</span>
 
                     <i class="ace-icon fa fa-caret-down"></i>
@@ -132,3 +132,27 @@
         </ul>
     </div>
 </div><!-- /.navbar-container -->
+<script>
+    var vm=new Vue({
+        el:'#navbar-container',
+        data:{
+            user:{
+                username:'',
+                password:'',
+                code:''
+            }
+
+        },
+        methods:{
+          checkLogin:function () {
+              let user=sessionStorage.getItem("user");
+              if (user!=null){
+                  this.user=JSON.parse(user);
+              }
+          }
+        },
+        mounted:function () {
+            this.checkLogin();
+        }
+    })
+</script>

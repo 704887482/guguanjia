@@ -1,16 +1,14 @@
 package cn.nyse.config;
 
 
+import cn.nyse.utils.MapWrapperFactory;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.logging.log4j2.Log4j2Impl;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -30,6 +28,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"cn.nyse.service","cn.nyse.utils"})//扫描服务层
 @EnableTransactionManagement//事务注解支持
 @PropertySource(value = "classpath:sys.properties",encoding = "utf-8")
+@Import(value = SpringRedisConfig.class)
 public class SpringMybatisConfig {
 
 
@@ -57,6 +56,8 @@ public class SpringMybatisConfig {
         tk.mybatis.mapper.session.Configuration configuration = new tk.mybatis.mapper.session.Configuration();
         configuration.setLogImpl(Log4j2Impl.class);//设置日志类
         configuration.setMapUnderscoreToCamelCase(true);//设置驼峰命名转换
+        configuration.setCallSettersOnNulls(true);
+        configuration.setObjectWrapperFactory(new MapWrapperFactory());
         sessionFactoryBean.setConfiguration(configuration);
         /*分页pagehelper*/
         PageInterceptor pageInterceptor=new PageInterceptor();

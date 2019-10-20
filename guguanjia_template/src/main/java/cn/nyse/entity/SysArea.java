@@ -1,7 +1,12 @@
 package cn.nyse.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_area")
 public class SysArea {
@@ -47,6 +52,7 @@ public class SysArea {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     @Column(name = "create_date")
     private Date createDate;
 
@@ -59,6 +65,7 @@ public class SysArea {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     @Column(name = "update_date")
     private Date updateDate;
 
@@ -74,7 +81,26 @@ public class SysArea {
     private String delFlag;
 
     private String icon;
+    @Transient
+    private String oldParentIds;
 
+    public String getOldParentIds() {
+        return oldParentIds;
+    }
+
+    public void setOldParentIds(String oldParentIds) {
+        this.oldParentIds = oldParentIds;
+    }
+    @Transient
+    private String parentName;
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
     /**
      * 获取编号
      *
@@ -303,5 +329,24 @@ public class SysArea {
      */
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SysArea{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", parentIds='" + parentIds + '\'' +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", icon='" + icon + '\'' +
+                '}';
     }
 }
