@@ -1,7 +1,5 @@
 package cn.nyse.controller;
 
-import cn.nyse.entity.SysOffice;
-import cn.nyse.service.SysOfficeService;
 import cn.nyse.service.WorkService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -23,9 +21,6 @@ public class WorkController {
 
     @Autowired
     WorkService service;
-
-    @Autowired
-    SysOfficeService officeService;
 
     @RequestMapping("/admin/work")
     public String work(){
@@ -49,11 +44,7 @@ public class WorkController {
         return workPageInfo;
     }
 
-    @RequestMapping("/office/selectOffices")
-    @ResponseBody
-    public List<SysOffice> selectOffices(){
-        return officeService.selectAll();
-    }
+
 
     @RequestMapping(value = "/admin/work/detail/{id}",method = RequestMethod.GET)
     @ResponseBody

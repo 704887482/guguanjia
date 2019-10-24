@@ -104,10 +104,10 @@
                                 </form>
                             </div>
                             <div class="widget-toolbar">
-			<span class="btn btn-purple btn-xs"
-                  onclick="Angel.downloadFile('search-form','area/export')">
+			<a class="btn btn-purple btn-xs"
+                 :href="path+'/manager/area/export'" download>
 			<i class="ace-icon fa fa-cloud-upload bigger-130"></i>
-			导出Excel</span>
+			导出Excel</a>
                             </div>
                             <div class="widget-toolbar no-border">
 			<span class="btn btn-purple btn-xs" id="importFile">
@@ -1949,7 +1949,7 @@
                                                     <div>
                                                         <div id="search" class="control-group"
                                                              style="padding:10px 0 0 15px;">
-                                                            <label for="key" class="control-label"
+                                                            <label  class="control-label"
                                                                    style="float:left;padding:5px 5px 3px;">关键字：</label>
                                                             <input type="text" class="empty" id="key" name="key"
                                                                    maxlength="50"

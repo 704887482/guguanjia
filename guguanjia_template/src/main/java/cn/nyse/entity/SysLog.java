@@ -1,7 +1,9 @@
 package cn.nyse.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_log")
 public class SysLog {
@@ -58,6 +60,34 @@ public class SysLog {
      */
     public Long getId() {
         return id;
+    }
+
+    private String params;
+    private String exception;
+    private String description;
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    public String getException() {
+        return exception;
+    }
+
+    public void setException(String exception) {
+        this.exception = exception;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -193,5 +223,22 @@ public class SysLog {
      */
     public void setMethod(String method) {
         this.method = method == null ? null : method.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SysLog{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", remoteAddr='" + remoteAddr + '\'' +
+                ", userAgent='" + userAgent + '\'' +
+                ", requestUri='" + requestUri + '\'' +
+                ", method='" + method + '\'' +
+                ", params='" + params + '\'' +
+                ", exception='" + exception + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

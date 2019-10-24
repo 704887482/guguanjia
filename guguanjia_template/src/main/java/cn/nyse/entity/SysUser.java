@@ -1,7 +1,9 @@
 package cn.nyse.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_user")
 public class SysUser {
@@ -508,5 +510,33 @@ public class SysUser {
      */
     public void setHeadPicture(String headPicture) {
         this.headPicture = headPicture == null ? null : headPicture.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", officeId=" + officeId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", no='" + no + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", userType='" + userType + '\'' +
+                ", deviceCode='" + deviceCode + '\'' +
+                ", loginIp='" + loginIp + '\'' +
+                ", loginDate=" + loginDate +
+                ", createBy='" + createBy + '\'' +
+                ", createDate=" + createDate +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDate=" + updateDate +
+                ", remarks='" + remarks + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", status='" + status + '\'' +
+                ", headPicture='" + headPicture + '\'' +
+                '}';
     }
 }

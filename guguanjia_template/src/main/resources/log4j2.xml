@@ -11,6 +11,9 @@
         <Logger name="cn.nyse.mapper" level="trace" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
+        <Logger name="druid.sql.DataSource" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Logger name="org.springframework.cache" level="trace" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
