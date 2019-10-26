@@ -1,7 +1,10 @@
 package cn.nyse.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
+import java.util.Objects;
 
 @Table(name = "sys_resource")
 public class SysResource {
@@ -354,5 +357,57 @@ public class SysResource {
      */
     public void setPermissionStr(String permissionStr) {
         this.permissionStr = permissionStr == null ? null : permissionStr.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "SysResource{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", common='" + common + '\'' +
+                ", icon='" + icon + '\'' +
+                ", sort=" + sort +
+                ", parentId=" + parentId +
+                ", type='" + type + '\'' +
+                ", url='" + url + '\'' +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                ", parentIds='" + parentIds + '\'' +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", createBy='" + createBy + '\'' +
+                ", updateBy='" + updateBy + '\'' +
+                ", delFlag='" + delFlag + '\'' +
+                ", permissionStr='" + permissionStr + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SysResource that = (SysResource) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(common, that.common) &&
+                Objects.equals(icon, that.icon) &&
+                Objects.equals(sort, that.sort) &&
+                Objects.equals(parentId, that.parentId) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(url, that.url) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(parentIds, that.parentIds) &&
+                Objects.equals(createDate, that.createDate) &&
+                Objects.equals(updateDate, that.updateDate) &&
+                Objects.equals(createBy, that.createBy) &&
+                Objects.equals(updateBy, that.updateBy) &&
+                Objects.equals(delFlag, that.delFlag) &&
+                Objects.equals(permissionStr, that.permissionStr);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, common, icon, sort, parentId, type, url, description, status, parentIds, createDate, updateDate, createBy, updateBy, delFlag, permissionStr);
     }
 }

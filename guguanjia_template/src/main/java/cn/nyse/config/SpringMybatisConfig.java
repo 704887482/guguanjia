@@ -32,7 +32,7 @@ import java.util.Properties;
 @EnableTransactionManagement//事务注解支持
 @PropertySource(value = "classpath:sys.properties",encoding = "utf-8")
 @Import(value = SpringRedisConfig.class)
-@EnableAspectJAutoProxy//开启aop注解支持
+//@EnableAspectJAutoProxy//开启aop注解支持
 public class SpringMybatisConfig {
 
 

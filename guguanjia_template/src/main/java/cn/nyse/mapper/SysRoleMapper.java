@@ -64,4 +64,17 @@ public interface SysRoleMapper extends Mapper<SysRole> {
 
     @Insert("DELETE FROM sys_user_role WHERE 1=1 and user_id= #{ids} AND role_id= #{rid}")
     int deleteUsersRole(@Param("ids") int ids,@Param("rid") int rid);
+
+    @Select("SELECT `id`, `office_id`, `name`, `data_scope`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag` FROM sys_role GROUP BY data_scope")
+    List<SysRole> selectScope();
+
+    @Select("SELECT c.id FROM " +
+            "sys_user a,sys_user_role b,sys_role c " +
+            "WHERE " +
+            "a.id=#{uid} " +
+            "AND " +
+            "a.id=b.user_id " +
+            "and " +
+            "b.role_id=c.id")
+    List<SysRole> selectByUid(long uid);
 }

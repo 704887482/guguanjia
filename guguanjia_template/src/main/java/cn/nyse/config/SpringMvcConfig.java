@@ -1,12 +1,14 @@
 package cn.nyse.config;
 
 
+import cn.nyse.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -34,5 +36,14 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         CommonsMultipartResolver commonsMultipartResolver=new CommonsMultipartResolver();
         return commonsMultipartResolver;
     }
+/*
+* 注册拦截器
+* */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        LoginInterceptor loginInterceptor = new LoginInterceptor();
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/**")
+                .excludePathPatterns(new String[]{"/","/login"});
 
+    }
 }

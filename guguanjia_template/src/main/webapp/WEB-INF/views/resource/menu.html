@@ -21,47 +21,31 @@
 		<!-- ace styles -->
 		<link rel="stylesheet" href="/guguanjia/static/ace/css/ace.min.css" id="main-ace-style" />
 
-		<!--[if lte IE 9]>
-		<link rel="stylesheet" href="/guguanjia/static/ace/css/ace-part2.min.css" />
-		<![endif]-->
+
 		<link rel="stylesheet" href="/guguanjia/static/ace/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="/guguanjia/static/ace/css/ace-rtl.min.css" />
 
-		<!--[if lte IE 9]>
-		<link rel="stylesheet" href="/guguanjia/static/ace/css/ace-ie.min.css" />
-		<![endif]-->
+
 
 		<link rel="stylesheet" href="/guguanjia/static/ztree/metro.css" />
 		<link rel="stylesheet" href="/guguanjia/static/validate/css/validform.css" />
 		<link rel="stylesheet" href="/guguanjia/static/css/custom.css" />
 
-		<!--[if !IE]> -->
-		<script src="/guguanjia/static/jquery/jquery-2.1.1.min.js"></script>
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-		<script src="/guguanjia/static/jquery/jquery-1.11.1.min.js"></script>
-		<![endif]-->
-
-
 		<!-- ace settings handler -->
 		<script src="/guguanjia/static/ace/js/ace-extra.min.js"></script>
 
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-		<!--[if lte IE 8]>
-		<script src="/guguanjia/static/bootstrap/html5shiv.min.js"></script>
-		<script src="/guguanjia/static/bootstrap/respond.min.js"></script>
-		<script>var ie8 = "ie8";</script>
-		<![endif]-->
+		
 	</head>
+	<script>
+		//获取主机地址之后的目录，如： uimcardprj/share/meun.html
+		var pathName=window.document.location.pathname;
+		var path=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
 
+	</script>
 	<body class="no-skin" id="body-content">
 		<!-- 顶部条 -->
 		<div id="navbar" class="navbar navbar-default">
-			<script type="text/javascript">
-                try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-			</script>
+			
 
 			<div class="navbar-container clearfix" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
@@ -200,15 +184,11 @@
 		</div>
 		<!-- 主体 -->
 		<div class="main-container" id="main-container">
-			<script type="text/javascript">
-                try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-			</script>
+			
 
 
 			<div id="sidebar" class="sidebar responsive">
-				<script type="text/javascript">
-                    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-				</script>
+				
 
 				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
@@ -492,7 +472,7 @@
 							<li data-level="2">
 
 								<a
-										href="../role/role.html"
+										href="../role/index.html"
 										id="menu_managerrole"
 										haschild="false"
 								>
@@ -614,17 +594,13 @@
 					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 				</div>
 
-				<script type="text/javascript">
-                    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-				</script>
+				
 			</div>
 
 
 			<div class="main-content">
 				<div class="breadcrumbs" id="breadcrumbs">
-					<script type="text/javascript">
-                        try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-					</script>
+					
 
 					<ul class="tab" id="breadcrumb">
 						<!-- <li class="active" >
@@ -896,506 +872,49 @@
 														</thead>
 
 														<tbody>
-															<tr>
-																<td class="center">233</td>
+															<tr v-for="menu in pageInfo.list">
+																<td class="center">{{menu.id}}</td>
 																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="APP管理详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'233'}" >
-																		APP管理</a>
+																	<a href="#"
+																	   @click="detail(menu.id)" >
+																		{{menu.name}}</a>
 																</td>
 																<td class="center">
-																	manager/app/index
+																	{{menu.url}}
 																</td>
 																<td class="center">
-																	业务管理
+																	{{menu.parent.name}}
 																</td>
 																<td class="center">
-																	菜单资源
+																	{{menu.name}}
 																</td>
 																<td class="center">
-																	公共
+																	{{menu.common=='0'?'非公共':'公共'}}
 																</td>
 																<td class="center">
-																	<span class='pink'>无</span>
+																	<span class='pink' :class="menu.icon">{{menu.icon?'':'无'}}</span>
 																</td>
 																<td class="center">
-																	5
+																	{{menu.sort}}
 																</td>
-																<td class="center">正常</td>
+																<td class="center">{{menu.status=='0'?'正常':'禁用'}}</td>
 																<td class="center">
 																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="APP管理编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'233',parentId:'232'}"
-																		   data-width="50%"
+																		<a class="green" href="#"
+
 																		>
 																			<i class="ace-icon fa fa-pencil bigger-130"></i>
 																		</a>
 
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<APP管理>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'233'}"
-																		   data-reloadurl="true"
+																		<a class="red" href="#"
+																		   onclick="$('#delModal').modal('show')"
 																		>
 																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																		</a>
 																	</div>
 																</td>
 															</tr>
-															<tr>
-																<td class="center">232</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="业务管理详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'232'}" >
-																		业务管理</a>
-																</td>
-																<td class="center">
 
-																</td>
-																<td class="center">
-
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<i class='ace-icon fa fa fa-puzzle-piece blue bigger-120'></i>
-																</td>
-																<td class="center">
-																	2
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="业务管理编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'232',parentId:''}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<业务管理>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'232'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">238</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="法律法规详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'238'}" >
-																		法律法规</a>
-																</td>
-																<td class="center">
-																	manager/statute/index
-																</td>
-																<td class="center">
-																	业务管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<i class='ace-icon fa fa fa-bolt blue bigger-120'></i>
-																</td>
-																<td class="center">
-																	7
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="法律法规编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'238',parentId:'232'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<法律法规>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'238'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">235</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="考核管理详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'235'}" >
-																		考核管理</a>
-																</td>
-																<td class="center">
-																	manager/examine/index
-																</td>
-																<td class="center">
-																	业务管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<span class='pink'>无</span>
-																</td>
-																<td class="center">
-																	4
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="考核管理编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'235',parentId:'232'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<考核管理>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'235'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">234</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="服务需求详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'234'}" >
-																		服务需求</a>
-																</td>
-																<td class="center">
-																	manager/demand/index
-																</td>
-																<td class="center">
-																	业务管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<span class='pink'>无</span>
-																</td>
-																<td class="center">
-																	3
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="服务需求编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'234',parentId:'232'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<服务需求>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'234'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">230</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="资质审核详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'230'}" >
-																		资质审核</a>
-																</td>
-																<td class="center">
-																	manager/qualification/index
-																</td>
-																<td class="center">
-																	业务管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<span class='pink'>无</span>
-																</td>
-																<td class="center">
-																	2
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="资质审核编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'230',parentId:'232'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<资质审核>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'230'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">236</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="电子台账详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'236'}" >
-																		电子台账</a>
-																</td>
-																<td class="center">
-																	manager/admin/work
-																</td>
-																<td class="center">
-																	业务管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<span class='pink'>无</span>
-																</td>
-																<td class="center">
-																	1
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="电子台账编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'236',parentId:'232'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<电子台账>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'236'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">231</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="电子台账详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'231'}" >
-																		电子台账</a>
-																</td>
-																<td class="center">
-																	manager/company/work
-																</td>
-																<td class="center">
-																	单位管理
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<span class='pink'>无</span>
-																</td>
-																<td class="center">
-																	4
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="电子台账编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'231',parentId:'227'}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<电子台账>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'231'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">227</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="单位管理详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'227'}" >
-																		单位管理</a>
-																</td>
-																<td class="center">
-
-																</td>
-																<td class="center">
-
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<i class='ace-icon fa fa fa-lastfm blue bigger-120'></i>
-																</td>
-																<td class="center">
-																	2
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="单位管理编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'227',parentId:''}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<单位管理>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'227'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
-															<tr>
-																<td class="center">189</td>
-																<td class="center">
-																	<a href="menu-detail.html"
-																	   data-title="机构用户详情" data-mode="detail"
-																	   data-url="menu/detail/showlayer"
-																	   data-data="{id:'189'}" >
-																		机构用户</a>
-																</td>
-																<td class="center">
-
-																</td>
-																<td class="center">
-
-																</td>
-																<td class="center">
-																	菜单资源
-																</td>
-																<td class="center">
-																	权限
-																</td>
-																<td class="center">
-																	<i class='ace-icon fa fa fa-group blue bigger-120'></i>
-																</td>
-																<td class="center">
-																	4
-																</td>
-																<td class="center">正常</td>
-																<td class="center">
-																	<div class="hidden-sm hidden-xs action-buttons">
-																		<a class="green" href="menu-save.html"
-																		   data-mode="page" data-title="机构用户编辑"
-																		   data-url="menu/edit/showlayer"
-																		   data-data="{id:'189',parentId:''}"
-																		   data-width="50%"
-																		>
-																			<i class="ace-icon fa fa-pencil bigger-130"></i>
-																		</a>
-
-																		<a class="red" href="javascript:void(0);"
-																		   data-mode="del" data-title="删除操作"
-																		   data-msg="你确定删除<机构用户>节点及其所有的子节点吗?(慎重操作)"
-																		   data-url="menu/delete" data-data="{id:'189'}"
-																		   data-reloadurl="true"
-																		>
-																			<i class="ace-icon fa fa-trash-o bigger-130"></i>
-																		</a>
-																	</div>
-																</td>
-															</tr>
 														</tbody>
 													</table>
 													<div class="space-8"></div>
@@ -1404,28 +923,32 @@
 														<div style="float: left;">
 															<div style="padding-top:5px;">
 																<span class="badge badge-info">
-																	当前第 1 页 / 3 页，共 26 条数据
-																</span>
+				当前第 {{pageInfo.pageNum}} 页 / {{pageInfo.pages}} 页，共 {{pageInfo.total}} 条数据
+			</span>
 															</div>
 														</div>
 														<div>
-														<!--	<div class="pagination no-margin pull-right clearfix">
-																<li class="prev disabled"><a href="javascript:void(0);" onclick="return false;">首页</a></li>
-																<li class="prev disabled"><a href="javascript:void(0);" onclick="return false;">上一页</a></li>
-																<li class="active"><a href="javascript:void(0);" onclick="return false;">1</a></li>
-																<li><a href="javascript:void(0);" onclick="paging('search-form',2);return false;">2</a></li>
-																<li><a href="javascript:void(0);" onclick="paging('search-form',3);return false;">3</a></li>
-																<li><a href="javascript:void(0);" onclick="paging('search-form',2);return false;">下一页</a></li>
-																<li><a href="javascript:void(0);" onclick="paging('search-form',3);return false;">尾页</a></li>
-															</div>--><!--有效果的分页-->
 															<div class="pagination no-margin pull-right clearfix">
-																<li class="prev disabled"><a href="javascript:void(0);" onclick="">首页</a></li>
-																<li class="prev disabled"><a href="javascript:void(0);" onclick="">上一页</a></li>
-																<li class="active"><a href="javascript:void(0);" onclick="">1</a></li>
-																<li><a href="javascript:void(0);" onclick="">2</a></li>
-																<li><a href="javascript:void(0);" onclick="">3</a></li>
-																<li><a href="javascript:void(0);" onclick="">下一页</a></li>
-																<li><a href="javascript:void(0);" onclick="">尾页</a></li>
+																<!--点击首页，设置页面为第一页-->
+																<li class="prev"><a href="#" @click="selectAll(1,pageInfo.pageSize)">首页</a></li>
+																<!--v-bind绑定classs判断如果有上一页的和可以点击，没有禁止点击-->
+																<li :class="pageInfo.hasPreviousPage?'prev':'prev disabled'">
+																	<!--if判断，上一页为true点击可翻页，为flase点击不可翻页-->
+																	<a v-if="pageInfo.hasPreviousPage" href="#" @click="selectAll(pageInfo.prePage,pageInfo.pageSize)">上一页</a>
+																	<a v-else-if="!pageInfo.hasPreviousPage" href="#">上一页</a>
+																</li>
+																<!--第几页，点击第几页，第几页的按钮就被激活-->
+																<li v-for="i in pageInfo.navigatepageNums" :class="pageInfo.pageNum==i?'active':''"><a href="#" @click="selectAll(i,pageInfo.pageSize)">{{i}}</a></li>
+																<!--v-bind绑定classs判断如果有上一页的和可以点击，没有禁止点击-->
+																<li :class="pageInfo.hasNextPage?'next':'next disabled'">
+																	<!--if判断，下一页为true点击可翻页，为flase点击不可翻页-->
+																	<a v-if="pageInfo.hasNextPage" href="#" @click="selectAll(pageInfo.nextPage,pageInfo.pageSize)">下一页</a>
+																	<a v-else-if="!pageInfo.hasNextPage" href="#">下一页</a>
+																</li>
+																<!--尾页-->
+																<li class="next">
+																	<a href="#" @click="selectAll(pageInfo.pages,pageInfo.pageSize)">尾页</a>
+																</li>
 															</div>
 
 														</div>
@@ -1437,8 +960,418 @@
 									</div>
 								</div>
 
-								<script type="text/javascript">
-                                    var setting = {
+
+					<!--修改模态框-->
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="updateModalLabel">角色编辑</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                       <div class="row">
+										   <div class="row">
+											   <div class="col-xs-12">
+												   <div id="fill-main-content2" style="height:100%">
+													   <div class="xuboxPageHtml" id="xboxTest2" style="overflow-y: auto; height: 368px;">
+
+
+														   <div class="layer">
+															   <form name="FormPost" id="menu-save" class="FormGrid" method="post" action="menu/save">
+
+																   <input type="hidden" value="233" name="id">
+																   <input type="hidden" value="0," name="parentIds">
+																   <input type="hidden" value="0,232," name="oldParentIds">
+
+																   <table class="EditTable" width="100%">
+																	   <tbody>
+																	   <tr style="display: none;">
+																		   <td class="ui-state-error" id="FormError"></td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单名称</td>
+																		   <td class="DataTD width-100"><input type="text" name="name" datatype="*" nullmsg="请输入菜单名称！" class="FormElement ui-widget-content ui-corner-all" value="APP管理"></td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单链接</td>
+																		   <td class="DataTD"><span class="red" style="width:30%">/guguanjia/</span>
+																			   <input type="text" style="width:58%" id="name" name="url" role="textbox" class="FormElement ui-widget-content ui-corner-all" value="manager/app/index" placeholder=""></td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">父级菜单</td>
+																		   <td class="DataTD">
+
+																			   <div class="clearfix width-100  input-group" style="">
+																				   <input class="form-control search-query" type="text" readonly="" id="treeselectname" name="" value="业务管理">
+																				   <span class="input-group-btn">
+																	<span class="btn btn-purple btn-sm" type="button" style="height: 34px;" data-mode="page" data-url="/guguanjia/manager/tag/treeselect" data-data="{url:'/guguanjia/manager/menu/tree',id:'treeselectid',nameId:'treeselectname',pIdKey:'parentId',selectIds:'232',curId:'233',checked:'false',rootNodeName:'',isLayer:'true'}" data-title="请选择" data-width="350px" data-height="400px">
+																		<i class="ace-icon fa fa-search bigger-110"></i>
+																		<a href="menu-select.html">查找</a>
+																	</span>
+																</span>
+																				   <input type="hidden" name="parentId" id="treeselectid" value="232">
+																			   </div>
+
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单类型</td>
+																		   <td class="DataTD">
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="type" type="radio" class="ace" checked="" value="0">
+																					   <span class="lbl"> 菜单资源 </span>
+																				   </label>
+																			   </div>
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="type" type="radio" class="ace" value="1">
+																					   <span class="lbl"> 按钮资源</span>
+																				   </label>
+																			   </div>
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">权限类型</td>
+																		   <td class="DataTD">
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="common" type="radio" class="ace" checked="" value="0">
+																					   <span class="lbl"> 权限资源 </span>
+																				   </label>
+																			   </div>
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="common" type="radio" class="ace" value="1">
+																					   <span class="lbl"> 公共资源</span>
+																				   </label>
+																			   </div>
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单图标</td>
+																		   <td class="DataTD">
+																			   <div class="width-100 clearfix ">
+																				   <input type="hidden" value="" name="icon" id="icon-input">
+																				   <i class="ace-icon  bigger-200 pink" style="vertical-align: middle;padding-right: 10px;"></i>
+																				   <span class="btn btn-sm btn-purple" id="icon-icon-btn">
+																	<i class="ace-icon fa fa-search bigger-110"></i>查找
+																</span>
+																			   </div>
+
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单序号</td>
+																		   <td class="DataTD">
+																			   <input class="FormElement" id="id_g" type="text" name="sort" value="5" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">使用状态</td>
+																		   <td class="DataTD">
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="status" type="radio" class="ace" checked="" value="0">
+																					   <span class="lbl"> 正常 </span>
+																				   </label>
+																			   </div>
+																			   <div class="radio inline">
+																				   <label>
+																					   <input name="status" type="radio" class="ace" value="1">
+																					   <span class="lbl"> 禁用</span>
+																				   </label>
+																			   </div>
+																		   </td>
+																	   </tr>
+																	   <tr class="FormData">
+																		   <td class="CaptionTD">菜单描述</td>
+																		   <td class="DataTD">
+																			   <textarea name="description" class="autosize-transition form-control " style="resize: none; overflow: hidden; word-wrap: break-word; height: 52px;"></textarea>
+																		   </td>
+																	   </tr>
+																	   </tbody>
+																   </table>
+															   </form>
+														   </div>
+
+														   <div class="width-100 clearfix" tag-save-btn="" style="bottom: -36px; left: 0px; position: absolute;">
+										<span class="btn btn-primary btn-sm bigger-110 width-50  pull-left" id="menu-save-save">
+											<i class="ace-icon fa fa-floppy-o align-top bigger-125"></i> 确 定
+										</span>
+															   <span class="btn btn-yellow btn-sm bigger-110 width-50 pull-right" id="menu-save-cancel">
+											<i class="ace-icon fa fa-times align-top  bigger-125"></i> 取 消
+										</span>
+														   </div>
+
+													   </div>
+												   </div>
+
+											   </div>
+										   </div>
+
+									   </div>
+		
+                                    </div>
+                                    <!--<div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary">提交更改</button>
+                                    </div>-->
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+						
+								
+								
+								 <!--删除模态框-->
+
+                        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="delModalLabel">删除</h4>
+                                    </div>
+                                    <div class="modal-body">是否删除</div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <button type="button" class="btn btn-primary" >提交</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+                        <!--查看详情模态框-->
+
+                        <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h4 class="modal-title" id="detailModalLabel">查看详情</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                       <div class="row">
+										   <div class="row">
+											   <div class="col-xs-12">
+												   <div id="fill-main-content3" style="height:100%">
+													   <div class="xuboxPageHtml" id="xboxTest3" style="overflow-y: auto; height: 404px;"><div class="layer">
+														   <div class="profile-user-info profile-user-info-striped wordbreak">
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">ID</div>
+																   <div class="profile-info-value">{{details.sum.id}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">名称</div>
+																   <div class="profile-info-value">{{details.sum.name}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">url</div>
+																   <div class="profile-info-value">{{details.sum.url}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">权限码(code)</div>
+																   <div class="profile-info-value"></div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">权限位(pos)</div>
+																   <div class="profile-info-value"></div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">资源类型</div>
+																   <div class="profile-info-value">{{details.sum.name}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">权限类型</div>
+																   <div class="profile-info-value">{{details.sum.common=='0'?'非公共':'公共'}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">图标</div>
+																   <div class="profile-info-value">
+																	   <i :class="details.sum.icon"></i>
+																   </div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">排序号</div>
+																   <div class="profile-info-value">{{details.sum.sort}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">状态</div>
+																   <div class="profile-info-value">{{details.sum.status}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">父级ID</div>
+																   <div class="profile-info-value">{{details.parent.id}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">父级名称</div>
+																   <div class="profile-info-value">{{details.parent.name}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">创建者</div>
+																   <div class="profile-info-value">{{details.sum.createBy}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">创建时间</div>
+																   <div class="profile-info-value">{{details.sum.createDate}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">更新者</div>
+																   <div class="profile-info-value">{{details.sum.updateBy}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">更新时间</div>
+																   <div class="profile-info-value">{{details.sum.updateDate}}</div>
+															   </div>
+															   <div class="profile-info-row">
+																   <div class="profile-info-name">描述</div>
+																   <div class="profile-info-value">{{details.sum.description}}</div>
+															   </div>
+														   </div>
+													   </div></div>
+												   </div>
+
+											   </div>
+										   </div>
+
+									   </div>
+		
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </div>
+
+					
+
+
+							</div>
+
+						</div>
+					</div>
+				</div><!-- /.page-content -->
+
+			</div><!-- /.main-content -->
+
+			<a href="javascript:void(0);" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"  style="z-index:1111">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- 底部 -->
+		<!-- basic scripts -->
+		<script type="text/javascript">
+            try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+			try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+			try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+		</script>
+
+
+		<!--<script type="text/javascript">
+			$(function(){
+				//初始化单选
+				var resourceType='0',common = '1',
+						status = '0';
+				$("input:radio[name=type][value="+resourceType+"]")[0].checked=true;
+				$("input:radio[name=common][value="+common+"]")[0].checked=true;
+				$("input:radio[name=status][value="+status+"]")[0].checked=true;
+			});
+		</script>-->
+		<script src="/guguanjia/static/jquery/jquery-2.1.1.min.js"></script>
+		<script src="/guguanjia/static/bootstrap/bootstrap.min.js"></script>
+		<!-- ace scripts -->
+		<script src="/guguanjia/static/ace/js/ace-elements.min.js"></script>
+		<script src="/guguanjia/static/ace/js/ace.min.js"></script>
+
+		<script>
+			$(function(){
+				$("#icon-icon-btn").click(function(){
+					$.layer({
+						type: 2,
+						title: '请单击选择图标',
+						maxmin: true,
+						iframe: {src : ctxPath+'/manager/tag/fontawesome?id=icon-input'},
+						area: ['1000px' , '550px']
+					});
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			$(function(){
+
+				var menusave = $("#menu-save").Validform({
+					ajaxPost : true,
+					beforeSubmit:function(curform){
+						var loadi = layer.load(5,2);
+						$("#menu-save").data('loadi',loadi);
+					},
+					callback:function(data){
+						layer.close($("#menu-save").data('loadi'));
+						if(data>0) {
+							layer.msg('操作成功', 1, 1,function(){
+								if("true" == "true"){
+									location.reload();
+								}else{
+									$curmenu.trigger('click');
+								}
+								layer.closeAll();
+							});
+						}else{
+							layer.msg('操作失败', 3, 1);
+						}
+					},
+					tiptype : function(msg, o, cssctl) {
+						if (!o.obj.is("form")) {
+							if (o.type != 2) {
+								tip.errorTip(msg,o.obj);
+							}
+						}
+					},
+					tipSweep : true
+				});
+
+				$("#menu-save-save").click(function() {
+					if("false" == "true"){
+
+					}
+					menusave.submitForm(false);
+					return false;
+				});
+
+				$("#menu-save-cancel").click(function(){
+					layer.closeAll();
+					return false;
+				});
+
+				$("#menu-save input,#menu-save textarea").blur(function(){
+					layer.closeTips();
+					return false;
+				})
+
+			});
+		</script>
+		<script type="text/javascript">
+
+			//图标切换改变
+			$("#resourceInput").on("input propertychange",function(){
+				var icon = $(this).val();
+				$("#resourceIcon").attr("class","ace-icon fa "+icon+" blue bigger-120");
+			}).trigger("change");
+			//描述框自动扩张高度
+			/*$('textarea[class*=autosize]').autosize({append: "\n"});*/
+
+		</script>
+
+
+		<script type="text/javascript">
+                     /*               var setting = {
                                         view:{
                                             expandSpeed:100,
                                             selectedMulti : false,
@@ -1567,8 +1500,8 @@
                                         }
                                     };
 
-                                    var treeObj;
-                                    $(function(){
+                                    var treeObj;*/
+                                 /*   $(function(){
                                         //树结构初始化
                                         nodeList=[]; //清除缓存
                                         var treeData = [{"updateDate":1426333150000,"level":1,"parentIds":"0,","icon":"fa fa-user","description":"","sort":1,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[{"updateDate":1426687438000,"level":2,"parentIds":"0,209,","icon":"fa fa-file-o","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/userCenter","parentId":209,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"我的资料","id":210,"status":"0","createDate":1426161580000}],"hasChild":true,"name":"个人中心","id":209,"status":"0","createDate":1426161539000},{"updateDate":1471346744000,"level":1,"parentIds":"0,","icon":"fa fa-lastfm","description":"","sort":2,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","children":[{"updateDate":1471008105000,"level":2,"parentIds":"0,227,","icon":"","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/company/detail","parentId":227,"createBy":"40,咻咻咻","common":"0","children":[],"hasChild":false,"name":"单位信息","id":228,"status":"0","createDate":1470705891000},{"updateDate":1471059369000,"level":2,"parentIds":"0,227,","icon":"","description":"","sort":2,"delFlag":"0","type":"0","url":"manager/company/accounts","parentId":227,"createBy":"40,咻咻咻","common":"0","children":[],"hasChild":false,"name":"单位账号","id":229,"status":"0","createDate":1470705945000},{"updateDate":1471759698000,"level":2,"parentIds":"0,227,","icon":"","description":"","sort":4,"delFlag":"0","type":"0","url":"manager/company/work","parentId":227,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"电子台账","id":231,"status":"0","createDate":1470705994000}],"hasChild":true,"name":"单位管理","id":227,"status":"0","createDate":1470705825000},{"updateDate":1475648974000,"level":1,"parentIds":"0,","icon":"fa fa-puzzle-piece","description":"","sort":2,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","children":[{"updateDate":1471759851000,"level":2,"parentIds":"0,232,","icon":"","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/admin/work","parentId":232,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"电子台账","id":236,"status":"0","createDate":1471759851000},{"updateDate":1471759870000,"level":2,"parentIds":"0,232,","icon":"","description":"","sort":2,"delFlag":"0","type":"0","url":"manager/qualification/index","parentId":232,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"资质审核","id":230,"status":"0","createDate":1470705978000},{"updateDate":1471759892000,"level":2,"parentIds":"0,232,","icon":"","description":"","sort":3,"delFlag":"0","type":"0","url":"manager/demand/index","parentId":232,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"服务需求","id":234,"status":"0","createDate":1471438004000},{"updateDate":1471759963000,"level":2,"parentIds":"0,232,","icon":"","description":"","sort":4,"delFlag":"0","type":"0","url":"manager/examine/index","parentId":232,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"考核管理","id":235,"status":"0","createDate":1471505022000},{"updateDate":1489629966000,"level":2,"parentIds":"0,232,","icon":"","description":"","sort":5,"delFlag":"0","type":"0","url":"manager/app/index","parentId":232,"createBy":"2,超级管理员","common":"1","children":[],"hasChild":false,"name":"APP管理","id":233,"status":"0","createDate":1471346960000},{"updateDate":1473474002000,"level":2,"parentIds":"0,232,","icon":"fa fa-bolt","description":"微信法律法规内容管理","sort":7,"delFlag":"0","type":"0","url":"manager/statute/index","parentId":232,"createBy":"2,超级管理员","common":"0","children":[],"hasChild":false,"name":"法律法规","id":238,"status":"0","createDate":1473328724000}],"hasChild":true,"name":"业务管理","id":232,"status":"0","createDate":1471346780000},{"updateDate":1471346738000,"level":1,"parentIds":"0,","icon":"fa fa-group","description":"","sort":4,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","children":[{"level":2,"parentIds":"0,189,","icon":"fa fa-globe","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/area","parentId":189,"common":"0","children":[{"updateDate":1421758658000,"level":3,"parentIds":"0,189,181,","icon":"fa fa-angellist","description":"这是一个按钮级别的示例，页面为添加，请添加@if(auth.hasPermission(\"sys:area:find\")){}测试","sort":1,"delFlag":"0","type":"1","url":"sys:area:find","parentId":181,"createBy":"22","common":"0","updateBy":"22","children":[],"hasChild":false,"name":"搜索按钮","id":203,"status":"0","createDate":1421758216000}],"hasChild":true,"name":"区域管理","id":181,"status":"0"},{"updateDate":1426086539000,"level":2,"parentIds":"0,189,","icon":"fa fa-sitemap","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/office","parentId":189,"common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"机构管理","id":192,"status":"0"},{"updateDate":1426086431000,"level":2,"parentIds":"0,189,","icon":"fa fa-user","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/sysuser","parentId":189,"common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"用户管理","id":193,"status":"0"},{"level":2,"parentIds":"0,189,","icon":"fa fa-graduation-cap","description":"","sort":2,"delFlag":"0","type":"0","url":"manager/role","parentId":189,"common":"0","children":[],"hasChild":false,"name":"角色管理","id":194,"status":"0"}],"hasChild":true,"name":"机构用户","id":189,"status":"0"},{"updateDate":1471346731000,"level":1,"parentIds":"0,","icon":"fa fa-cogs","description":"","sort":5,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[{"updateDate":1426086747000,"level":2,"parentIds":"0,188,","icon":"fa fa-list","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/menu","parentId":188,"common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"菜单配置","id":1,"status":"0"},{"updateDate":1426086761000,"level":2,"parentIds":"0,188,","icon":"fa fa-calculator","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/dict","parentId":188,"common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"字典管理","id":190,"status":"0"},{"level":2,"parentIds":"0,188,","icon":"fa fa-copy","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/syslog","parentId":188,"common":"0","children":[],"hasChild":false,"name":"日志查询","id":195,"status":"0"}],"hasChild":true,"name":"系统管理","id":188,"status":"0"},{"updateDate":1471346722000,"level":1,"parentIds":"0,","icon":"fa fa-binoculars","description":"","sort":6,"delFlag":"0","type":"0","url":"","parentId":0,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[{"updateDate":1426086952000,"level":2,"parentIds":"0,204,","icon":"fa fa-crosshairs","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/monitor/ehcache","parentId":204,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"Ehcache监控","id":205,"status":"0","createDate":1425384679000},{"updateDate":1426087219000,"level":2,"parentIds":"0,204,","icon":"fa fa-flash","description":"","sort":1,"delFlag":"0","type":"0","url":"manager/monitor/jvm","parentId":204,"createBy":"2,超级管理员","common":"0","updateBy":"2,超级管理员","children":[],"hasChild":false,"name":"jvm监控","id":206,"status":"0","createDate":1425784620000}],"hasChild":true,"name":"系统监控","id":204,"status":"0","createDate":1425384670000}];
@@ -1604,54 +1537,13 @@
                                             searchNode(e);
                                         });
 
-                                    });
+                                    });*/
 
 								</script>
 
-
-							</div>
-
-						</div>
-					</div>
-				</div><!-- /.page-content -->
-
-			</div><!-- /.main-content -->
-
-			<a href="javascript:void(0);" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"  style="z-index:1111">
-				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-			</a>
-		</div><!-- /.main-container -->
-
-		<!-- 底部 -->
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src="/guguanjia/static/jquery/jquery-2.1.1.min.js"></script>
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-		<script src="/guguanjia/static/jquery/jquery-1.11.1.min.js"></script>
-		<![endif]-->
-
-		<script type="text/javascript">
-            if('ontouchstart' in document.documentElement) document.write("<script src='/guguanjia/static/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="/guguanjia/static/bootstrap/bootstrap.min.js"></script>
-
-		<!-- ace scripts -->
-		<script src="/guguanjia/static/ace/js/ace-elements.min.js"></script>
-		<script src="/guguanjia/static/ace/js/ace.min.js"></script>
-
-		<script type="text/javascript">
-            var ctxPath = "../../..";
-            window.onload=function(){
-                /* $("#ace-settings-navbar").trigger("click");//固定头部导航栏
-                $("#ace-settings-sidebar").trigger("click");//固定左侧菜单
-                $("#ace-settings-highlight").trigger("click"); */
-            };
-		</script>
-
 		<!-- 引入其他js -->
+		<script type="text/javascript" src="/guguanjia/static/js/vue.js"></script>
+		<script type="text/javascript" src="/guguanjia/static/js/axios.js"></script>
 		<script src="/guguanjia/static/js/history.js"></script>
 		<script type="text/javascript" src="/guguanjia/static/layer/layer.min.js"></script>
 		<script type="text/javascript" src="/guguanjia/static/js/spin.min.js"></script>
@@ -1664,6 +1556,10 @@
 		<script type="text/javascript" src="/guguanjia/static/js/jquery.nicescroll.min.js"></script>
 		<script type="text/javascript" src="/guguanjia/static/js/public.js"></script>
 
+		<script type="text/javascript" src="/guguanjia/static/js/resource/index.js"></script>
+
+		<div id="script">
+		</div>
 
 	</body>
 </html>
